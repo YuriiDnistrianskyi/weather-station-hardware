@@ -1,19 +1,35 @@
-#include <Arduino.h>
+#include "../include/initPins.h"
+#include "../include/readData.h"
 
-// put function declarations here:
-int myFunction(int, int);
+uint32_t delayReadSensor;
 
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+void setup() 
+{
+  initPins();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-}
+void loop() 
+{
+  uint8_t temperature = readTemperature();
+  uint8_t humidity = readHumidity();
+  uint8_t pressure = readPressure();
+  uint8_t altitude = readAltitude();
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  Serial1.begin(115200);
-  Serial1.print("Hello, world! ");
+  Serial.print("Temperature: ");
+  Serial.print(temperature);
+  Serial.println(" °C");
+
+  Serial.print("Humidity: ");
+  Serial.print(humidity);
+  Serial.println(" %");
+
+  Serial.print("Pressure: ");
+  Serial.print(pressure);
+  Serial.println(" hPa");
+
+  Serial.print("Altitude: ");
+  Serial.print(altitude);
+  Serial.println(" m");
+
+  delay(delayReadSensor);
 }
