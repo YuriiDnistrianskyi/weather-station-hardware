@@ -5,7 +5,7 @@
 extern Adafruit_BME280 bme;
 
 float readTemperature() {
-    float temperature = bme.readTemperature(); // float
+    float temperature = bme.readTemperature();
     return temperature;
 }
 
@@ -15,11 +15,6 @@ float readHumidity() {
 }
 
 float readPressure() {
-    float pressure = bme.readPressure() / 100.0F; // float to uint16_t
+    float pressure = bme.readPressure() / 100.0F;
     return pressure;
-}
-
-float readAltitude() {
-    float altitude = bme.readAltitude(1013.25);
-    return altitude;
 }

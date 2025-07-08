@@ -19,5 +19,5 @@ void initPins()
         while (1);
     }
 
-    delayReadSensor = 1000;
+    delayReadSensor = 10000;
 }

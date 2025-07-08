@@ -6,6 +6,5 @@
 float readTemperature();
 float readHumidity();
 float readPressure();
-float readAltitude(); //
 
 #endif // READDATA_H
