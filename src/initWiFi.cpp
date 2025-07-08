@@ -2,6 +2,9 @@
 
 #include "../include/initWiFi.h"
 
+// char* ssid = "HGU-B170";
+// char* password = "B1B4B170";
+
 char* ssid = "Test";
 char* password = "123123123";
 
