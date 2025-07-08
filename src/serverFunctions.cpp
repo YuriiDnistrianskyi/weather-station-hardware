@@ -1,19 +1,17 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
-#include "../include/initServer.h"
+#include "../include/serverFunctions.h"
 
 #include "../include/config.h"
 
-void initServer()
-{
-    
-}
+String macAddress = WiFi.macAddress();
 
 void sendDataToServer(float temperature, float humidity, float pressure)
 {
     if (WiFi.status() != WL_CONNECTED)
     {
+        Serial.println("WiFi not connected. Cannot send data.");
         return;
     }
 
@@ -28,11 +26,10 @@ void sendDataToServer(float temperature, float humidity, float pressure)
 
     http.addHeader("Content-Type", "application/json");
 
-    String jsonData = "{ \"weather_station_id\": " + String(1) + // mac_address
-                      ", \"date\" : \"2024-02-02\" " + // delete
-                      ", \"temperature\": " + String(temperature) +
-                      ", \"humidity\": " + String(humidity) +
-                      ", \"CO2\": " + String(pressure) + "}";
+    String jsonData = "{ \"mac_address\": " + macAddress +
+                      ", \"t\": " + String(temperature) +         // Temperature
+                      ", \"h\": " + String(humidity) +            // Humidity
+                      ", \"p\": " + String(pressure) + "}";       // Pressure
     
     int httpResponseCode = http.POST(jsonData);
 
@@ -40,7 +37,6 @@ void sendDataToServer(float temperature, float humidity, float pressure)
     {
         String response = http.getString();
         Serial.print("HTTP Response code: ");
-        Serial.print(httpResponseCode + " ");
         Serial.println(response);
     }
     else

@@ -2,7 +2,7 @@
 #include "../include/initWiFi.h"
 #include "../include/readData.h"
 
-#include "../include/initServer.h"
+#include "../include/serverFunctions.h"
 
 uint32_t delayReadSensor;
 float lastTemperature = 0.0;
