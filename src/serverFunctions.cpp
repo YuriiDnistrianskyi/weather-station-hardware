@@ -44,7 +44,7 @@ void sendDataToServer(float temperature, float humidity, float pressure)
     else
     {
         Serial.print("Error sending POST: ");
-        Serial.println(http.errorToString(httpResponseCode).c_str());
+        Serial.println(http.errorToString(httpResponseCode));
     }
 
     http.end();
