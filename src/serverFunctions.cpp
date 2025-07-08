@@ -1,5 +1,6 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
+#include <ArduinoJson.h>
 
 #include "../include/serverFunctions.h"
 
@@ -19,17 +20,18 @@ void sendDataToServer(float temperature, float humidity, float pressure)
     HTTPClient http;
 
     String uri = String(serverUri) + ":" + String(port) + "/info";
-    Serial.print("Connecting to server: ");
-    Serial.println(uri);
     
     http.begin(client, uri);
-
     http.addHeader("Content-Type", "application/json");
 
-    String jsonData = "{ \"mac_address\": " + macAddress +
-                      ", \"t\": " + String(temperature) +         // Temperature
-                      ", \"h\": " + String(humidity) +            // Humidity
-                      ", \"p\": " + String(pressure) + "}";       // Pressure
+    StaticJsonDocument<200> doc;
+    doc["mac_address"] = macAddress;
+    doc["t"] = temperature;
+    doc["h"] = humidity;
+    doc["p"] = pressure;
+
+    String jsonData;
+    serializeJson(doc, jsonData);
     
     int httpResponseCode = http.POST(jsonData);
 
