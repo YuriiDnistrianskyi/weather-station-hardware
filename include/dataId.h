@@ -4,7 +4,7 @@
 enum DataId {
     TEMPERATURE = 0,
     HUMIDITY = 1,
-    PRESSURE = 3
+    PRESSURE = 2
 };
 
 #endif // DATAID_H

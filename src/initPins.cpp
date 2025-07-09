@@ -18,7 +18,7 @@ void IRAM_ATTR handleClick()
     if ((nowTime - lastDebounceTime) > debounceTime)
     {
         lastDebounceTime = nowTime;
-        dataId = static_cast<DataId>((dataId + 1) % 4);
+        dataId = static_cast<DataId>((dataId + 1) % 3);
     }
 }
 
