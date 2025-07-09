@@ -6,8 +6,6 @@
 
 #include "../include/config.h"
 
-extern uint32_t delayReadSensor;
-
 Adafruit_BME280 bme;
 uint32_t lastDebounceTime = 0;
 
@@ -38,6 +36,4 @@ void initPins()
         Serial.println("Could not find a valid BME280 sensor, check wiring!");
         while (1);
     }
-
-    delayReadSensor = 10000;
 }

@@ -4,7 +4,8 @@
 
 #include "../include/serverFunctions.h"
 
-uint32_t delayReadSensor;
+#include "../include/config.h"
+
 float lastTemperature = 0.0;
 float lastHumidity = 0.0;
 float lastPressure = 0.0;
