@@ -24,16 +24,19 @@ void initButton()
     attachInterrupt(digitalPinToInterrupt(buttonPin), handleClick, RISING);
 }
 
-void initPins()
+void initBME280()
 {
-    Serial.begin(115200);
-
-    initButton();
-
     bool status;
     status = bme.begin(0x76);
     if (!status) {
         Serial.println("Could not find a valid BME280 sensor, check wiring!");
         while (1);
     }
+}
+
+void initPins()
+{
+    Serial.begin(115200);
+    initButton();
+    initBME280();
 }
