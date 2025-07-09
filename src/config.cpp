@@ -2,7 +2,7 @@
 
 #include "../include/config.h"
 
-uint8_t buttonPin = D4;
+uint8_t buttonPin = D7;
 
 uint8_t debounceTime = 200;
 uint16_t delayReadSensor = 1000; //

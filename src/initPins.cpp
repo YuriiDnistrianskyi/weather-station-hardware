@@ -4,17 +4,21 @@
 
 #include "../include/initPins.h"
 
+#include "../include/dataId.h"
 #include "../include/config.h"
 
-Adafruit_BME280 bme;
-uint32_t lastDebounceTime = 0;
+extern DataId dataId;
 
-void handleClick()
+Adafruit_BME280 bme;
+volatile uint32_t lastDebounceTime = 0;
+
+void IRAM_ATTR handleClick()
 {
     uint32_t nowTime = millis();
     if ((nowTime - lastDebounceTime) > debounceTime)
     {
         lastDebounceTime = nowTime;
+        dataId = static_cast<DataId>((dataId + 1) % 4);
     }
 }
 

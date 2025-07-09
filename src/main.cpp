@@ -1,10 +1,13 @@
 #include "../include/initPins.h"
 #include "../include/initWiFi.h"
 #include "../include/readData.h"
+#include "../include/dataId.h"
 
 #include "../include/serverFunctions.h"
 
 #include "../include/config.h"
+
+DataId dataId = TEMPERATURE; 
 
 float lastTemperature = 0.0;
 float lastHumidity = 0.0;
@@ -26,7 +29,8 @@ void loop()
     lastTemperature = temperature;
     lastHumidity = humidity;
     lastPressure = pressure;
-    sendDataToServer(temperature, humidity, pressure);
+
+    // sendDataToServer(temperature, humidity, pressure);
     
     // Serial.print("Temperature: ");
     // Serial.print(temperature);
