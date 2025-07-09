@@ -1,6 +1,8 @@
 #ifndef PRINTDATA_H
 #define PRINTDATA_H
 
-void printData(float temperature, float humidity, float pressure);
+#include "../include/dataId.h"
+
+void printData(DataId dataId);
 
 #endif // PRINTDATA_H

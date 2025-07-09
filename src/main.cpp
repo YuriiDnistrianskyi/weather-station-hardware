@@ -1,6 +1,7 @@
 #include "../include/initPins.h"
 #include "../include/initWiFi.h"
 #include "../include/readData.h"
+#include "../include/printData.h"
 #include "../include/dataId.h"
 
 #include "../include/serverFunctions.h"
@@ -30,19 +31,8 @@ void loop()
     lastHumidity = humidity;
     lastPressure = pressure;
 
+    printData(dataId);
     // sendDataToServer(temperature, humidity, pressure);
-    
-    // Serial.print("Temperature: ");
-    // Serial.print(temperature);
-    // Serial.println(" °C");
-
-    // Serial.print("Humidity: ");
-    // Serial.print(humidity);
-    // Serial.println(" %");
-
-    // Serial.print("Pressure: ");
-    // Serial.print(pressure);
-    // Serial.println(" hPa");
   }  
 
   delay(delayReadSensor);
