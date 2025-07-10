@@ -3,22 +3,21 @@
 #include "../include/printData.h"
 
 #include "../include/dataId.h"
+#include "../include/BME280Data.h"
 
-extern float lastTemperature;
-extern float lastHumidity;
-extern float lastPressure; 
+extern BME280Data oldBmeData;
 
 void printData(DataId dataId) {
     switch (dataId)
     {
     case TEMPERATURE:
-        Serial.println(lastTemperature);
+        Serial.println(oldBmeData.temperature);
         break;
     case HUMIDITY:
-        Serial.println(lastHumidity);
+        Serial.println(oldBmeData.humidity);
         break;
     case PRESSURE:
-        Serial.println(lastPressure);
+        Serial.println(oldBmeData.pressure);
         break;
     default:
         Serial.print("Exception in printData: Unknown DataId: ");

@@ -3,6 +3,7 @@
 #include "../include/readData.h"
 #include "../include/printData.h"
 #include "../include/dataId.h"
+#include "../include/BME280Data.h"
 
 #include "../include/serverFunctions.h"
 
@@ -10,9 +11,7 @@
 
 DataId dataId = TEMPERATURE; 
 
-float lastTemperature = 0.0;
-float lastHumidity = 0.0;
-float lastPressure = 0.0;
+BME280Data oldBmeData; // = {0.0f, 0.0f, 0.0f};
 
 uint32_t lastReadSensorTime = 0;
 uint32_t lastSetDataIdTime = 0;
@@ -28,18 +27,15 @@ void loop()
   uint32_t nowTimeForReadSensor = millis();
   if ((nowTimeForReadSensor - lastReadSensorTime) > delayReadSensor)
   {
-    float temperature = readTemperature();
-    float humidity = readHumidity();
-    float pressure = readPressure();
     lastReadSensorTime = nowTimeForReadSensor;
+    BME280Data bmeData = readBME280();
 
-    if (temperature != lastTemperature || humidity != lastHumidity || pressure != lastPressure) {
-      lastTemperature = temperature;
-      lastHumidity = humidity;
-      lastPressure = pressure;
+    if (bmeData != oldBmeData)
+    {
+      oldBmeData = bmeData;
 
       printData(dataId);
-      // sendDataToServer(temperature, humidity, pressure);
+      // sendDataToServer(oldBmeData);
 
       uint32_t nowTimeForSetDataId = millis();
       if ((nowTimeForSetDataId - lastSetDataIdTime) > delaySetDataId) 

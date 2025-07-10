@@ -3,8 +3,8 @@
 
 #include <Arduino.h>
 
-float readTemperature();
-float readHumidity();
-float readPressure();
+#include "../include/BME280Data.h"
+
+BME280Data readBME280();
 
 #endif // READDATA_H
