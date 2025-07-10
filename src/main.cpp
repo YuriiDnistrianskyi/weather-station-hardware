@@ -14,6 +14,8 @@ float lastTemperature = 0.0;
 float lastHumidity = 0.0;
 float lastPressure = 0.0;
 
+uint32_t lastSetDataIdTime = 0;
+
 void setup() 
 {
   initPins();
@@ -33,7 +35,13 @@ void loop()
 
     printData(dataId);
     // sendDataToServer(temperature, humidity, pressure);
-  }  
 
+    uint32_t nowTimeForSetDataId = millis();
+    if ((nowTimeForSetDataId - lastSetDataIdTime) > delaySetDataId) 
+    {
+      dataId = TEMPERATURE;
+    }
+  }
+  
   delay(delayReadSensor);
 }

@@ -8,6 +8,7 @@
 #include "../include/config.h"
 
 extern DataId dataId;
+extern uint32_t lastSetDataIdTime;
 
 Adafruit_BME280 bme;
 volatile uint32_t lastDebounceTime = 0;
@@ -18,6 +19,7 @@ void IRAM_ATTR handleClick()
     if ((nowTime - lastDebounceTime) > debounceTime)
     {
         lastDebounceTime = nowTime;
+        lastSetDataIdTime = nowTime;
         dataId = static_cast<DataId>((dataId + 1) % 3);
     }
 }

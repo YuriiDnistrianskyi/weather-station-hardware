@@ -5,6 +5,7 @@ extern uint8_t buttonPin;
 
 extern uint8_t debounceTime;
 extern uint16_t delayReadSensor;
+extern uint16_t delaySetDataId;
 
 extern char* serverUri;
 extern char* port;
