@@ -14,6 +14,7 @@ float lastTemperature = 0.0;
 float lastHumidity = 0.0;
 float lastPressure = 0.0;
 
+uint32_t lastReadSensorTime = 0;
 uint32_t lastSetDataIdTime = 0;
 
 void setup() 
@@ -24,24 +25,26 @@ void setup()
 
 void loop() 
 {
-  float temperature = readTemperature();
-  float humidity = readHumidity();
-  float pressure = readPressure();
+  uint32_t nowTimeForReadSensor = millis();
+  if ((nowTimeForReadSensor - lastReadSensorTime) < delayReadSensor)
+  {
+    float temperature = readTemperature();
+    float humidity = readHumidity();
+    float pressure = readPressure();
 
-  if (temperature != lastTemperature || humidity != lastHumidity || pressure != lastPressure) {
-    lastTemperature = temperature;
-    lastHumidity = humidity;
-    lastPressure = pressure;
+    if (temperature != lastTemperature || humidity != lastHumidity || pressure != lastPressure) {
+      lastTemperature = temperature;
+      lastHumidity = humidity;
+      lastPressure = pressure;
 
-    printData(dataId);
-    // sendDataToServer(temperature, humidity, pressure);
+      printData(dataId);
+      // sendDataToServer(temperature, humidity, pressure);
 
-    uint32_t nowTimeForSetDataId = millis();
-    if ((nowTimeForSetDataId - lastSetDataIdTime) > delaySetDataId) 
-    {
-      dataId = TEMPERATURE;
+      uint32_t nowTimeForSetDataId = millis();
+      if ((nowTimeForSetDataId - lastSetDataIdTime) > delaySetDataId) 
+      {
+        dataId = TEMPERATURE;
+      }
     }
   }
-  
-  delay(delayReadSensor);
 }
