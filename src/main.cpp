@@ -26,7 +26,6 @@ void setup()
 void loop() 
 {
   uint32_t nowTimeForReadSensor = millis();
-  if ((nowTimeForReadSensor - lastReadSensorTime) < delayReadSensor)
   if ((nowTimeForReadSensor - lastReadSensorTime) > delayReadSensor)
   {
     float temperature = readTemperature();
