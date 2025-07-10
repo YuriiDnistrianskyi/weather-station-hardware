@@ -27,10 +27,12 @@ void loop()
 {
   uint32_t nowTimeForReadSensor = millis();
   if ((nowTimeForReadSensor - lastReadSensorTime) < delayReadSensor)
+  if ((nowTimeForReadSensor - lastReadSensorTime) > delayReadSensor)
   {
     float temperature = readTemperature();
     float humidity = readHumidity();
     float pressure = readPressure();
+    lastReadSensorTime = nowTimeForReadSensor;
 
     if (temperature != lastTemperature || humidity != lastHumidity || pressure != lastPressure) {
       lastTemperature = temperature;
