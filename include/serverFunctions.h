@@ -1,6 +1,8 @@
 #ifndef SERVERFUNCTIONS_H
 #define SERVERFUNCTIONS_H
 
-void sendDataToServer(float temperature, float humidity, float pressure);
+#include "../include/BME280Data.h"
+
+void sendDataToServer(BME280Data bmeData);
 
 #endif // SERVERFUNCTIONS_H

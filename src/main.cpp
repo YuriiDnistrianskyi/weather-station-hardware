@@ -34,7 +34,7 @@ void loop()
     {
       oldBmeData = bmeData;
 
-      printData(dataId);
+      printData(dataId, oldBmeData);
       // sendDataToServer(oldBmeData);
 
       uint32_t nowTimeForSetDataId = millis();

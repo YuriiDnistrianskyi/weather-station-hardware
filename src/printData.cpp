@@ -6,24 +6,23 @@
 #include "../include/dataId.h"
 #include "../include/BME280Data.h"
 
-extern BME280Data oldBmeData;
 extern TM1637Display display;
 
-void printData(DataId dataId) {
+void printData(DataId dataId, BME280Data bmeData) {
     switch (dataId)
     {
         case TEMPERATURE: {
-            int t = int(oldBmeData.temperature * 100);
+            int t = int(bmeData.temperature * 100);
             display.showNumberDecEx(t, 0b01000000);
             break;
         }
         case HUMIDITY: {
-            int h = int(oldBmeData.humidity * 100);
+            int h = int(bmeData.humidity * 100);
             display.showNumberDecEx(h, 0b01000000);
             break;
         }
         case PRESSURE: {
-            int p = int(oldBmeData.pressure);
+            int p = int(bmeData.pressure);
             display.showNumberDec(p);
             break;
         }
