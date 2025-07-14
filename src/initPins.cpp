@@ -1,6 +1,7 @@
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
+#include <TM1637Display.h>
 
 #include "../include/initPins.h"
 
@@ -11,6 +12,7 @@ extern DataId dataId;
 extern uint32_t lastSetDataIdTime;
 
 Adafruit_BME280 bme;
+TM1637Display display(clkPin, dioPin);
 volatile uint32_t lastDebounceTime = 0;
 
 void IRAM_ATTR handleClick()
@@ -40,9 +42,15 @@ void initBME280()
     }
 }
 
+void initTM1637()
+{
+    display.setBrightness(0x0f);
+}
+
 void initPins()
 {
     Serial.begin(115200);
     initButton();
     initBME280();
+    initTM1637();
 }

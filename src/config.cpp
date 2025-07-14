@@ -4,6 +4,9 @@
 
 uint8_t buttonPin = D7;
 
+uint8_t clkPin = D5;
+uint8_t dioPin = D6;
+
 uint8_t debounceTime = 200;
 uint16_t delayReadSensor = 1000; //
 uint16_t delaySetDataId = 10000;
