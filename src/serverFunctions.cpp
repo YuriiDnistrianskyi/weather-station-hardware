@@ -5,10 +5,11 @@
 #include "../include/serverFunctions.h"
 
 #include "../include/config.h"
+#include "../include/BME280Data.h"
 
 String macAddress = WiFi.macAddress();
 
-void sendDataToServer(float temperature, float humidity, float pressure)
+void sendDataToServer(BME280Data bmeData)
 {
     if (WiFi.status() != WL_CONNECTED)
     {
@@ -26,9 +27,9 @@ void sendDataToServer(float temperature, float humidity, float pressure)
 
     StaticJsonDocument<200> doc;
     doc["mac_address"] = macAddress;
-    doc["t"] = temperature;
-    doc["h"] = humidity;
-    doc["p"] = pressure;
+    doc["t"] = bmeData.temperature;
+    doc["h"] = bmeData.humidity;
+    doc["p"] = bmeData.pressure;
 
     String jsonData;
     serializeJson(doc, jsonData);

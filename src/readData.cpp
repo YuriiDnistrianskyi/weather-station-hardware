@@ -1,20 +1,15 @@
 #include <Adafruit_BME280.h>
 
 #include "../include/readData.h"
+#include "../include/BME280Data.h"
 
 extern Adafruit_BME280 bme;
 
-float readTemperature() {
-    float temperature = bme.readTemperature();
-    return temperature;
-}
-
-float readHumidity() {
-    float humidity = bme.readHumidity();
-    return humidity;
-}
-
-float readPressure() {
-    float pressure = bme.readPressure() / 100.0F;
-    return pressure;
+BME280Data readBME280() 
+{
+    BME280Data data;
+    data.temperature = bme.readTemperature();
+    data.humidity = bme.readHumidity();
+    data.pressure = bme.readPressure() / 100.0F;
+    return data;
 }

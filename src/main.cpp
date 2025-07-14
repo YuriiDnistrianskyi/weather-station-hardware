@@ -1,13 +1,20 @@
 #include "../include/initPins.h"
 #include "../include/initWiFi.h"
 #include "../include/readData.h"
+#include "../include/printData.h"
+#include "../include/dataId.h"
+#include "../include/BME280Data.h"
 
 #include "../include/serverFunctions.h"
 
-uint32_t delayReadSensor;
-float lastTemperature = 0.0;
-float lastHumidity = 0.0;
-float lastPressure = 0.0;
+#include "../include/config.h"
+
+DataId dataId = TEMPERATURE; 
+
+BME280Data oldBmeData; // = {0.0f, 0.0f, 0.0f};
+
+uint32_t lastReadSensorTime = 0;
+uint32_t lastSetDataIdTime = 0;
 
 void setup() 
 {
@@ -17,28 +24,24 @@ void setup()
 
 void loop() 
 {
-  float temperature = readTemperature();
-  float humidity = readHumidity();
-  float pressure = readPressure();
+  uint32_t nowTimeForReadSensor = millis();
+  if ((nowTimeForReadSensor - lastReadSensorTime) > delayReadSensor)
+  {
+    lastReadSensorTime = nowTimeForReadSensor;
+    BME280Data bmeData = readBME280();
 
-  if (temperature != lastTemperature || humidity != lastHumidity || pressure != lastPressure) {
-    lastTemperature = temperature;
-    lastHumidity = humidity;
-    lastPressure = pressure;
-    sendDataToServer(temperature, humidity, pressure);
-    
-    // Serial.print("Temperature: ");
-    // Serial.print(temperature);
-    // Serial.println(" °C");
+    if (bmeData != oldBmeData)
+    {
+      oldBmeData = bmeData;
 
-    // Serial.print("Humidity: ");
-    // Serial.print(humidity);
-    // Serial.println(" %");
+      printData(dataId, oldBmeData);
+      // sendDataToServer(oldBmeData);
 
-    // Serial.print("Pressure: ");
-    // Serial.print(pressure);
-    // Serial.println(" hPa");
-  }  
-
-  delay(delayReadSensor);
+      uint32_t nowTimeForSetDataId = millis();
+      if ((nowTimeForSetDataId - lastSetDataIdTime) > delaySetDataId) 
+      {
+        dataId = TEMPERATURE;
+      }
+    }
+  }
 }
